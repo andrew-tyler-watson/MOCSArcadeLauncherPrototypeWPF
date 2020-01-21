@@ -1,0 +1,50 @@
+﻿<Window x:Class="MocsArcadeLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MocsArcadeLauncher"
+        xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+        mc:Ignorable="d" WindowStyle="None" WindowState="Maximized"
+        Title="MainWindow" Height="450" Width="800" DataContext="{Binding Main, Source={StaticResource Locator}}" KeyDown="MainGrid_OnKeyDown">
+    <Window.Resources>
+        <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                 Color="Transparent"/>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Grid Background="Black" x:Name="MainGrid">
+        <ListBox x:Name="MainListbox" ItemsSource="{Binding Games}"
+                 SelectionMode="Single" Background="Transparent"
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 FlowDirection="LeftToRight" ItemContainerStyle="{StaticResource myLBStyle}"
+                 SelectedItem="{Binding SelectedGame}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="dataLayer:Game">
+                    <local:GameTileUserControl DataContext="{Binding}"
+                                               Background="Black" Height="150" Width="150"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ItemsControl x:Name="GameTilesControl"  ItemsSource="{Binding Games}">
+                <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                   
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>-->
+
+    </Grid>
+</Window>
