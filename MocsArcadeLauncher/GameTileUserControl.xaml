@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:MocsArcadeLauncher"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border x:Name="SelectionBorder" BorderBrush="AliceBlue" BorderThickness="5">
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="75"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
@@ -17,5 +17,5 @@
             <Image Source="{Binding PathToIconFile}" HorizontalAlignment="Center" Grid.Row="0"/>
             <TextBlock Text="{Binding Name}" Foreground="LawnGreen" HorizontalAlignment="Center" Grid.Row="1"/>
         </Grid>
-    </Border>
+
 </UserControl>

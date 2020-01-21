@@ -10,8 +10,8 @@
     <Window.Resources>
         <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
             <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                 Color="Transparent"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrush}"
+                                 Color="GreenYellow"/>
             </Style.Resources>
         </Style>
     </Window.Resources>

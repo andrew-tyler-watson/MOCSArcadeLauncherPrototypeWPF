@@ -24,46 +24,46 @@ namespace MocsArcadeLauncher
         public GameTileUserControl()
         {
             InitializeComponent();
-            Loaded += OnLoaded;
+            //Loaded += OnLoaded;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var Gamey = ((Game)DataContext);
-            Binding bind = new Binding("IsSelected") {Source = Gamey, Mode = BindingMode.TwoWay};
-            this.SetBinding(IsSelectedProperty, bind);
-        }
+        //private void OnLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    var Gamey = ((Game)DataContext);
+        //    Binding bind = new Binding("IsSelected") {Source = Gamey, Mode = BindingMode.TwoWay};
+        //    this.SetBinding(IsSelectedProperty, bind);
+        //}
 
-        public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register(
-                "IsSelected", typeof(Boolean),
-                typeof(GameTileUserControl), new PropertyMetadata(OnSelectedChangedCallBack)
-            );
-        public bool IsSelected
-        {
-            get
-            {
-                return (bool)GetValue(IsSelectedProperty);
-            }
-            set
-            {
-                SetValue(IsSelectedProperty, value);
+        //public static readonly DependencyProperty IsSelectedProperty =
+        //    DependencyProperty.Register(
+        //        "IsSelected", typeof(Boolean),
+        //        typeof(GameTileUserControl), new PropertyMetadata(OnSelectedChangedCallBack)
+        //    );
+        //public bool IsSelected
+        //{
+        //    get
+        //    {
+        //        return (bool)GetValue(IsSelectedProperty);
+        //    }
+        //    set
+        //    {
+        //        SetValue(IsSelectedProperty, value);
                 
-            }
-        }
+        //    }
+        //}
 
-        private static void OnSelectedChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            var senderTile = sender as GameTileUserControl;
-            if ((bool)e.NewValue)
-            {
-                senderTile.SelectionBorder.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                senderTile.SelectionBorder.Visibility = Visibility.Collapsed;
-            }
-        }
+        //private static void OnSelectedChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    var senderTile = sender as GameTileUserControl;
+        //    if ((bool)e.NewValue)
+        //    {
+        //        senderTile.SelectionBorder.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        senderTile.SelectionBorder.Visibility = Visibility.Collapsed;
+        //    }
+        //}
 
         private void UIElement_OnKeyDown(object sender, KeyEventArgs e)
         {
