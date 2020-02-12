@@ -33,18 +33,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ItemsControl x:Name="GameTilesControl"  ItemsSource="{Binding Games}">
-                <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                   
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>-->
 
     </Grid>
 </Window>
