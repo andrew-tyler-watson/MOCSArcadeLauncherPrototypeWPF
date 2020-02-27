@@ -18,12 +18,13 @@
     <Grid Background="Black" x:Name="MainGrid">
         <ListBox x:Name="MainListbox" ItemsSource="{Binding Games}"
                  SelectionMode="Single" Background="Transparent"
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"
                  FlowDirection="LeftToRight" ItemContainerStyle="{StaticResource myLBStyle}"
-                 SelectedItem="{Binding SelectedGame}">
+                 SelectedItem="{Binding SelectedGame}" Margin="10" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using DataLayer;
 using GalaSoft.MvvmLight;
+using System.Windows.Controls;
 
 namespace MocsArcadeLauncher.ViewModel
 {
@@ -26,11 +27,6 @@ namespace MocsArcadeLauncher.ViewModel
         public MainViewModel()
         {
             
-        }
-
-        public void GiveFocusManagerListOfGameTiles(List<GameTileUserControl> Tiles)
-        {
-
         }
 
         #region Properties
@@ -68,8 +64,7 @@ namespace MocsArcadeLauncher.ViewModel
         #endregion
 
 
-        
-
+        #region Functions
 
         public List<Game> GetGamesFromDirectory()
         {
@@ -91,9 +86,10 @@ namespace MocsArcadeLauncher.ViewModel
         public Game GetGameFromGameDirectory(DirectoryInfo directoryInfo)
         {
             var gameName = directoryInfo.Name;
-            var dirFiles = directoryInfo.GetFiles("*.ico");
-            var iconPath = dirFiles[0].FullName;
-            var startScriptPath = directoryInfo.GetDirectories("*StartScript*")[0].GetFiles(gameName + "_StartScript*")[0].FullName;
+            var icoFiles = directoryInfo.GetFiles("*.ico");
+            var iconPath = icoFiles[0].FullName;
+            var psFiles = directoryInfo.GetFiles("*.ps1");
+            var startScriptPath = psFiles[0].Name;
 
 
             return new Game()
@@ -106,39 +102,13 @@ namespace MocsArcadeLauncher.ViewModel
 
         }
 
-        public void HandleUpArrow()
-        {
-            SelectedGame.IsSelected = false;
-        }
-        public void HandleDownArrow()
-        {
-            SelectedGame.IsSelected = false;
-        }
-        public void HandleLeftArrow()
-        {
-            SelectedGame.IsSelected = false;
-        }
-        public void HandleRightArrow()
-        {
-            SelectedGame.IsSelected = false;
-        }
+        #endregion
+
 
         public void HandleEscape()
         {
             Games[3].IsSelected = false;
         }
-
-
-        public void SelectGame(int selection)
-        {
-            SelectedGame = Games[selection];
-        }
-
-        public void SelectGame(Game selection)
-        {
-            SelectedGame = selection;
-        }
-
         public void RunGame()
         {
             //Run selected game based off of 
