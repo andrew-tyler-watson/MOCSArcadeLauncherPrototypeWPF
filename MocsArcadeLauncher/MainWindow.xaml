@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MocsArcadeLauncher"
         xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
         mc:Ignorable="d" WindowStyle="None" WindowState="Maximized"
-        Title="MainWindow" Height="450" Width="800" DataContext="{Binding Main, Source={StaticResource Locator}}" KeyDown="MainGrid_OnKeyDown">
+        Deactivated="Window_Deactivated"
+        Title="MOCSArcade" Height="450" Width="800" DataContext="{Binding Main, Source={StaticResource Locator}}" KeyDown="MainGrid_OnKeyDown">
     <Window.Resources>
         <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
             <Style.Resources>

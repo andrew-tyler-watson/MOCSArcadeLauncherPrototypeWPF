@@ -76,5 +76,11 @@ namespace MocsArcadeLauncher
 
             }
         }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+        }
     }
 }
