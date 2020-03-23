@@ -4,6 +4,8 @@ using System.IO;
 using DataLayer;
 using GalaSoft.MvvmLight;
 using System.Windows.Controls;
+using GalaSoft.MvvmLight.Command;
+
 
 namespace MocsArcadeLauncher.ViewModel
 {
@@ -61,6 +63,46 @@ namespace MocsArcadeLauncher.ViewModel
             }
         }
 
+        private string _PathToGameDirectory;
+        public string PathToGameDirectory
+        {
+            get
+            {
+                return _PathToGameDirectory;
+            }
+            set
+            {
+                _PathToGameDirectory = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _PathToUpdaterDirectory;
+        public string PathToUpdaterDirectory
+        {
+            get
+            {
+                return _PathToUpdaterDirectory;
+            }
+            set
+            {
+                _PathToUpdaterDirectory = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _PathToFocuserDirectory;
+        public string PathToFocuserDirectory
+        {
+            get
+            {
+                return _PathToFocuserDirectory;
+            }
+            set
+            {
+                _PathToFocuserDirectory = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
 
@@ -69,8 +111,12 @@ namespace MocsArcadeLauncher.ViewModel
         public List<Game> GetGamesFromDirectory()
         {
             var output = new List<Game>();
+            if (Properties.Settings.Default.GameRootDirectory == "")
+            {
+                return output;
+            }
 
-            var rootPath = "C:/Users/andre/MocsArcade";
+            var rootPath = Properties.Settings.Default.GameRootDirectory;
             var rootDir = new DirectoryInfo(rootPath);
             var gameDirs = rootDir.EnumerateDirectories();
 
@@ -100,6 +146,36 @@ namespace MocsArcadeLauncher.ViewModel
                 IsSelected = true
             };
 
+        }
+
+        public void PopulateUserSettingsProperties()
+        {
+            PathToGameDirectory = Properties.Settings.Default.GameRootDirectory;
+            PathToFocuserDirectory = Properties.Settings.Default.FocusExecPath;
+            PathToUpdaterDirectory = Properties.Settings.Default.UpdaterExecPath;
+        }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _SaveSettingsCommand;
+        public RelayCommand SaveSettingsCommand
+        {
+            get
+            {
+                return _SaveSettingsCommand ?? (_SaveSettingsCommand = new RelayCommand(() => {
+                    Properties.Settings.Default.UpdaterExecPath = PathToUpdaterDirectory;
+                    Properties.Settings.Default.GameRootDirectory = PathToGameDirectory;
+                    Properties.Settings.Default.FocusExecPath = PathToFocuserDirectory;
+                    Properties.Settings.Default.Save();
+                    Games = GetGamesFromDirectory();
+                }));
+            }
+            set
+            {
+                _SaveSettingsCommand = value;
+            }
         }
 
         #endregion

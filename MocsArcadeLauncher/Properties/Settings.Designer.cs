@@ -25,13 +25,37 @@ namespace MocsArcadeLauncher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:/Users/andre/MocsArcade")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string GameRootDirectory {
             get {
                 return ((string)(this["GameRootDirectory"]));
             }
             set {
                 this["GameRootDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UpdaterExecPath {
+            get {
+                return ((string)(this["UpdaterExecPath"]));
+            }
+            set {
+                this["UpdaterExecPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FocusExecPath {
+            get {
+                return ((string)(this["FocusExecPath"]));
+            }
+            set {
+                this["FocusExecPath"] = value;
             }
         }
     }

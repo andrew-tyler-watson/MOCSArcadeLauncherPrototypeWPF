@@ -3,7 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="GameRootDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:/Users/andre/MocsArcade</Value>
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UpdaterExecPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FocusExecPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

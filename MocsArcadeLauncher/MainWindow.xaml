@@ -17,7 +17,36 @@
         </Style>
     </Window.Resources>
     <Grid Background="Black" x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="SettingsEditor" Visibility="Collapsed"
+                        Grid.Column="1" Grid.Row="0">
+            <StackPanel>
+                <TextBlock Foreground="LawnGreen">PathToGameDirectory:</TextBlock>
+                <TextBox Text="{Binding PathToGameDirectory, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Foreground="LawnGreen">PathToUpdaterDirectory:</TextBlock>
+                <TextBox Text="{Binding PathToUpdaterDirectory}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Foreground="LawnGreen">PathToFocuserDirectory:</TextBlock>
+                <TextBox Text="{Binding PathToFocuserDirectory}"/>
+            </StackPanel>
+            <Button Command="{Binding SaveSettingsCommand}">Save
+            </Button>
+        </StackPanel>
+
         <ListBox x:Name="MainListbox" ItemsSource="{Binding Games}"
+                 Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1"
                  SelectionMode="Single" Background="Transparent"
                  HorizontalAlignment="Center" VerticalAlignment="Top"
                  FlowDirection="LeftToRight" ItemContainerStyle="{StaticResource myLBStyle}"
@@ -37,4 +66,5 @@
         </ListBox>
 
     </Grid>
+
 </Window>
