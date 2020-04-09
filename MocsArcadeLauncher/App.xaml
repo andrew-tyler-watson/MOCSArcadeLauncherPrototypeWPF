@@ -1,7 +1,11 @@
 <Application x:Class="MocsArcadeLauncher.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MocsArcadeLauncher" StartupUri="MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-  <Application.Resources>
-    <ResourceDictionary>
-      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MocsArcadeLauncher.ViewModel" />
-    </ResourceDictionary>
-  </Application.Resources>
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <FontFamily x:Key="ArcadeRounded">./Fonts/Arcade-Rounded.ttf#Arcade Rounded</FontFamily>
+            <FontFamily x:Key="ArcadeInterlaced">./Fonts/Arcade-Interlaced.ttf#Arcade Interlaced</FontFamily>
+            <FontFamily x:Key="ArcadeNormal">./Fonts/Arcade-Normal.ttf#Arcade Normal</FontFamily>
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MocsArcadeLauncher.ViewModel" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

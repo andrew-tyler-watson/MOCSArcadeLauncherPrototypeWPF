@@ -23,12 +23,39 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+
         </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
+            <TextBlock FontSize="48" FontFamily="{StaticResource ArcadeNormal}" Foreground="LawnGreen" TextWrapping="Wrap">Welcome to the Mocs Arcade</TextBlock>
+        </StackPanel>
+        
+
+        <ListBox x:Name="MainListbox" ItemsSource="{Binding Games}"
+                 Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1"
+                 SelectionMode="Single" Background="Transparent"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"
+                 FlowDirection="LeftToRight" ItemContainerStyle="{StaticResource myLBStyle}"
+                 SelectedItem="{Binding SelectedGame}" Margin="10" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="dataLayer:Game">
+                    <local:GameTileUserControl DataContext="{Binding}"
+                                               Background="Black" Height="150" Width="150"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel x:Name="SettingsEditor" Visibility="Collapsed"
-                        Grid.Column="1" Grid.Row="0">
+                        Grid.Column="1" Grid.Row="2">
             <StackPanel>
                 <TextBlock Foreground="LawnGreen">PathToGameDirectory:</TextBlock>
                 <TextBox Text="{Binding PathToGameDirectory, Mode=TwoWay}"/>
@@ -44,27 +71,9 @@
             <Button Command="{Binding SaveSettingsCommand}">Save
             </Button>
         </StackPanel>
-
-        <ListBox x:Name="MainListbox" ItemsSource="{Binding Games}"
-                 Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1"
-                 SelectionMode="Single" Background="Transparent"
-                 HorizontalAlignment="Center" VerticalAlignment="Top"
-                 FlowDirection="LeftToRight" ItemContainerStyle="{StaticResource myLBStyle}"
-                 SelectedItem="{Binding SelectedGame}" Margin="10" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="dataLayer:Game">
-                    <local:GameTileUserControl DataContext="{Binding}"
-                                               Background="Black" Height="150" Width="150"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" x:Name="FocusNotifierTextBlock">
+            <TextBlock FontSize="48" FontFamily="{StaticResource ArcadeNormal}" Foreground="LawnGreen" TextWrapping="Wrap">Arcade Mode Off</TextBlock>
+        </StackPanel>
     </Grid>
 
 </Window>

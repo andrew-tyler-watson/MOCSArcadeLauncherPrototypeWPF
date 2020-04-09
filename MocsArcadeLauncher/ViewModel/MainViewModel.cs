@@ -106,6 +106,7 @@ namespace MocsArcadeLauncher.ViewModel
         #endregion
 
 
+
         #region Functions
 
         public List<Game> GetGamesFromDirectory()
@@ -180,11 +181,6 @@ namespace MocsArcadeLauncher.ViewModel
 
         #endregion
 
-
-        public void HandleEscape()
-        {
-            Games[3].IsSelected = false;
-        }
         public void RunGame()
         {
             //Run selected game based off of 

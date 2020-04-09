@@ -29,10 +29,10 @@ namespace MocsArcadeLauncher
         public MainWindow()
         {
             InitializeComponent();
-            FocusManager.SetFocusedElement(this, this);
+
             Loaded += OnLoaded_SelectFirstListBoxItem;
             StartHelperProcesses();
-            
+            //Q, E, Z, X, C, J, O, I, K, and L
         }
 
         private void OnLoaded_SelectFirstListBoxItem(object sender, RoutedEventArgs e)
@@ -51,11 +51,6 @@ namespace MocsArcadeLauncher
             }
         }
 
-        private void UIElement_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-
-
-        }
         private Process _Updater;
         public Process Updater 
         {
@@ -81,14 +76,28 @@ namespace MocsArcadeLauncher
             }
         }
 
+        public bool ShouldStealFocus { get; set; }
 
         private void MainGrid_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            if(e.Key == Key.Enter && Keyboard.IsKeyDown(Key.Escape))
             {
-                ((MainViewModel)this.DataContext).HandleEscape();
+                Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             }
-            if (e.Key == Key.Enter)
+            else if (e.Key == Key.E && (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
+            {
+                ShouldStealFocus = !ShouldStealFocus;
+                if (ShouldStealFocus)
+                {
+                    FocusNotifierTextBlock.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    FocusNotifierTextBlock.Visibility = Visibility.Visible;
+                }
+            }
+            else if (e.Key == Key.Enter)
             {
                 var game = MainListbox.SelectedItem as Game;
 
@@ -124,18 +133,32 @@ namespace MocsArcadeLauncher
             {
                 Application.Current.Shutdown();
             }
+            if(e.Key == Key.E)
+            {
+                UpdateGame(((Game)MainListbox.SelectedItem).Name);
+            }
+
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            Window window = (Window)sender;
-            window.Topmost = true;
-        }
 
+            MainWindow window = (MainWindow)sender;
+
+            if (window.ShouldStealFocus)
+            {
+                window.Topmost = true;
+                Focuser.Start();
+            }
+            else
+            {
+                window.Topmost = false;
+            }
+
+        }
         private void StartHelperProcesses()
         {
             Updater.Start();
-            //Focuser.Start();
         }
 
         private Process InitializeUpdater()
@@ -148,10 +171,21 @@ namespace MocsArcadeLauncher
             process.StartInfo.FileName = "powershell";
             process.StartInfo.WorkingDirectory = Properties.Settings.Default.UpdaterExecPath;
 
-            process.StartInfo.Arguments = @"-ExecutionPolicy Unrestricted .\Main.exe " + Properties.Settings.Default.GameRootDirectory;
+            process.StartInfo.Arguments = "-ExecutionPolicy Unrestricted .\\Main.exe  \"" + Properties.Settings.Default.GameRootDirectory +"\"";
 
             return process;
         }
+
+        private void UpdateGame(string gameName)
+        {
+            StopHelperProcesses();
+            var oneTimeUpdater = InitializeUpdater();
+            oneTimeUpdater.StartInfo.Arguments = "-ExecutionPolicy Unrestricted .\\Main.exe \"" + Properties.Settings.Default.GameRootDirectory + "\" \"" + gameName + "\"";
+            oneTimeUpdater.Start();
+            oneTimeUpdater.WaitForExit();
+            Updater.Start();
+        }
+
         private Process InitializeFocuser()
         {
             var process = new Process();
@@ -160,15 +194,25 @@ namespace MocsArcadeLauncher
             process.StartInfo.LoadUserProfile = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.FileName = "powershell";
-            process.StartInfo.WorkingDirectory = Properties.Settings.Default.UpdaterExecPath;
+            process.StartInfo.WorkingDirectory = Properties.Settings.Default.FocusExecPath;
 
-            process.StartInfo.Arguments = @"-ExecutionPolicy Unrestricted .\Main.exe ";
+            process.StartInfo.Arguments = @"-ExecutionPolicy Unrestricted .\focus.exe ";
             return process;
         }
         private void StopHelperProcesses()
         {
-            Updater.Kill();
-            //Focuser.Kill();
+            try
+            {
+                Focuser.Kill();
+                Updater.Kill();
+            }
+            catch(Exception err)
+            {
+
+            }
+
+            
         }
+
     }
 }
