@@ -28,10 +28,10 @@ namespace MocsArcadeLauncher
     {
         public MainWindow()
         {
+            StartHelperProcesses();
             InitializeComponent();
 
             Loaded += OnLoaded_SelectFirstListBoxItem;
-            StartHelperProcesses();
             //Q, E, Z, X, C, J, O, I, K, and L
         }
 
@@ -113,12 +113,18 @@ namespace MocsArcadeLauncher
 
                 process.StartInfo.Arguments = @"-ExecutionPolicy Unrestricted ./" + game.PathToRunScript;
                 StopHelperProcesses();
+
                 process.Start();
+                ShouldStealFocus = false;
+                this.WindowState = WindowState.Minimized;
                 process.WaitForExit();
+                ShouldStealFocus = true;
+                this.WindowState = WindowState.Maximized; 
+                Focuser.Start();
                 
                 
             }
-            if(e.Key == Key.S && (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
+            else if(e.Key == Key.S && (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
             {
                 if(SettingsEditor.Visibility == Visibility.Visible)
                 {
@@ -129,14 +135,14 @@ namespace MocsArcadeLauncher
                     SettingsEditor.Visibility = Visibility.Visible;
                 }
             }
-            if(e.Key == Key.X && (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
+            else if(e.Key == Key.X && (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
             {
                 Application.Current.Shutdown();
             }
-            if(e.Key == Key.E)
-            {
-                UpdateGame(((Game)MainListbox.SelectedItem).Name);
-            }
+            //else if(e.Key == Key.E && !(Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl)))
+            //{
+            //    UpdateGame(((Game)MainListbox.SelectedItem).Name);
+            //}
 
         }
 
@@ -159,6 +165,7 @@ namespace MocsArcadeLauncher
         private void StartHelperProcesses()
         {
             Updater.Start();
+            Updater.WaitForExit();
         }
 
         private Process InitializeUpdater()

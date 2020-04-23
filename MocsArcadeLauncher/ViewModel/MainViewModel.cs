@@ -109,6 +109,11 @@ namespace MocsArcadeLauncher.ViewModel
 
         #region Functions
 
+        public void UpdateGameList()
+        {
+            Games = GetGamesFromDirectory();
+        }
+
         public List<Game> GetGamesFromDirectory()
         {
             var output = new List<Game>();
